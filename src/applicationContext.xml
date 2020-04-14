@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+<!-- Loading the properties file into the spring config file -->
+<context:property-placeholder location="classpath:sport.properties"/>
+
+	
+    <!-- Define your beans here -->
+    
+    <!-- define the dependency -->
+   
+	<bean id="myFortuneService"
+			class="com.luv2code.springdemo.HappyFortuneService">
+	</bean>
+	 
+	 
+	 
+	 
+	  <bean id="myBaseballCoach"
+	 		class="com.luv2code.springdemo.BaseballCoach">
+	 		
+	 		<!-- Set up the constructor injection -->
+	 		 <constructor-arg ref="myFortuneService" />	 		
+	 </bean>
+	 	 	
+	 	
+	 <bean id="myBasketballCoach"
+	 		class="com.luv2code.springdemo.BasketballCoach">	
+	 		
+	 		<!-- Set up the constructor injection -->
+	 		 <constructor-arg ref="myFortuneService" /> 		
+	 	</bean>  
+	    
+	    
+	 <bean id="myCoach"
+ 		class="com.luv2code.springdemo.TrackCoach">	 		
+ 	</bean>
+ 	
+ 	
+
+	<bean id="myCricketCoach"
+		class="com.luv2code.springdemo.CricketCoach">
+	
+	<!-- Using the setter injection to inject dependencies -->
+	<!-- The property name is the name of the setter method in the CricketCoach class 
+	but here it starts with a small letter -->
+		<property name="fortuneService" ref="myFortuneService" />
+	
+	<!-- Inject literal values -->
+		<property name="emailAddress" value="${foo.email}"/>
+		<property name="team"  value="${foo.team}"/>
+	</bean>
+
+
+
+
+	<!-- PRACTICE ACTIVITY #2 -->
+ 	
+ 	<bean id="myGreatFortuneService" 
+ 		class="com.luv2code.springdemo.GreatFortuneService">
+ 	</bean>
+
+	<bean id="myGolfCoach"
+		class = "com.luv2code.springdemo.GolfCoach">
+	
+		<!-- Setting up the constructor injection -->
+		<constructor-arg ref="myGreatFortuneService"/>
+	</bean>
+
+
+
+</beans>
+
+
